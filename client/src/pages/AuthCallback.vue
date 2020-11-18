@@ -1,7 +1,7 @@
 <template></template>
 
 <script>
-import { Loading, LocalStorage, Platform } from 'quasar'
+import { Loading, LocalStorage, Notify, Platform } from 'quasar'
 
 import { instance as axios } from 'boot/axios'
 import * as auth from 'src/services/auth0'
@@ -61,15 +61,25 @@ export default {
              * a "custom token" in their documentation.  With this token we can authenticate the client
              * using the "signInWithCustomToken" method provided by the Firebase Client SDK.
              */
-            // let customToken = await axios.get('/auth/token')
-            // await loginWithCustomToken(customToken)
+            let customToken
+            let result = await axios.get('/auth/token')
+            if (result.statusText === 'OK') {
+               customToken = result.data.firebaseToken
+            } else {
+               Notify.create({ color: 'negative', message: 'server failed to return firebase token' })
+               this.$router.push({ name: 'logout' })
+            }
+            await loginWithCustomToken(customToken)
+            LocalStorage.set('firebaseSession', true)
 
             LocalStorage.set('loggedIn', true)
+            this.$router.push({ name: 'home' })
          } catch (err) {
+            Notify.create({ color: 'negative', message: 'an error occurred during login process' })
             console.error('AuthCallback', err)
+            this.$router.push({ name: 'logout' })
          } finally {
             Loading.hide()
-            this.$router.push({ name: 'home' })
          }
       },
    },

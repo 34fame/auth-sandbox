@@ -2,10 +2,10 @@
    <q-page class="flex flex-center">
       <div class="column justify-center q-gutter-xl">
          <img alt="Quasar logo" src="~assets/quasar-logo-full.svg" />
-         <q-btn v-if="!loggedIn" label="Login" @click="onLogin()" />
-         <q-btn v-if="loggedIn" label="Logout" @click="onLogout()" />
+         <q-btn v-if="!loggedIn && !profile" label="Login" @click="onLogin()" />
+         <q-btn v-if="loggedIn || profile" label="Logout" @click="onLogout()" />
 
-         <div v-if="profile">
+         <div v-if="loggedIn && profile">
             <div class="row justify-center items-center q-gutter-md">
                <q-avatar>
                   <q-img :src="profile.picture" />
@@ -39,8 +39,7 @@ export default {
       },
 
       firebaseToken() {
-         const tokens = LocalStorage.getItem('tokens')
-         if (tokens.firebaseToken) {
+         if (LocalStorage.has('firebaseSession')) {
             return 'Firebase token available'
          } else {
             return 'No Firebase token available'
