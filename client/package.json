@@ -7,8 +7,9 @@
    "private": true,
    "scripts": {
       "test": "echo \"No test specified\" && exit 0",
-      "dev:spa": "QENV=dev quasar dev",
-      "dev:ios": "QENV=dev quasar dev -m cordova -T ios"
+      "dev:spa": "cross-env QENV=dev quasar dev",
+      "dev:android": "cross-env QENV=dev quasar dev -m cordova -T android -i",
+      "dev:ios": "cross-env QENV=dev quasar dev -m cordova -T ios"
    },
    "dependencies": {
       "@auth0/cordova": "^0.4.3",
@@ -22,7 +23,8 @@
    },
    "devDependencies": {
       "@quasar/app": "^2.0.0",
-      "@quasar/quasar-app-extension-qenv": "^1.0.3"
+      "@quasar/quasar-app-extension-qenv": "^1.0.3",
+      "cross-env": "^7.0.2"
    },
    "browserslist": [
       "last 10 Chrome versions",

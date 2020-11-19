@@ -1,9 +1,9 @@
 <template>
    <q-page class="flex flex-center">
       <div class="column justify-center q-gutter-xl">
-         <img alt="Quasar logo" src="~assets/quasar-logo-full.svg" />
-         <q-btn v-if="!loggedIn && !profile" label="Login" @click="onLogin()" />
-         <q-btn v-if="loggedIn || profile" label="Logout" @click="onLogout()" />
+         <q-img alt="Quasar logo" src="~assets/login.png" width="256px" />
+         <q-btn v-if="!loggedIn && !profile" color="secondary" label="Login" size="xl" @click="onLogin()" />
+         <q-btn v-if="loggedIn || profile" color="secondary" label="Logout" size="xl" @click="onLogout()" />
 
          <div v-if="loggedIn && profile">
             <div class="row justify-center items-center q-gutter-md">

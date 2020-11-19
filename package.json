@@ -10,7 +10,11 @@
    },
    "scripts": {
       "local:client:ios": "cd client && yarn run dev:ios && cd ..",
+      "local:client:android": "cd client && yarn run dev:android && cd ..",
+      "local:client:spa": "cd client && yarn run dev:spa && cd ..",
       "local:server": "cd server/functions && yarn run serve && cd ../..",
-      "local:ios": "npm-run-all --parallel local:server local:client:ios"
+      "local:android": "npm-run-all --parallel local:server local:client:android",
+      "local:ios": "npm-run-all --parallel local:server local:client:ios",
+      "local:web": "npm-run-all --parallel local:server local:client:spa"
    }
 }
